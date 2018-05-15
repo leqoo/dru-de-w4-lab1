@@ -16,13 +16,15 @@ class Lab1Spec extends FlatSpec with Matchers {
         .parse(
           "202.32.92.47 - - [01/Jun/1995:00:00:59 -0600] \"GET /~scottp/publish.html\" 200 271")
         .nonEmpty)
-    assert(sourceIterator.flatMap(LogRecord.parse).size == 2408625)
+    assert(sourceIterator.flatMap(LogRecord.parse).size == 2408623)
   }
 
   it should "not parse malformed strings" in {
     assert(LogRecord.parse("").isEmpty)
     assert(LogRecord.parse("malformed input").isEmpty)
     assert(LogRecord.parse("sdflhgsdfg").isEmpty)
+    assert(LogRecord.parse("maz3.maz.net - - [11/Oa67220.dial.tip.net - - [12/Oct/1995:01:39:12 -0600] \"POST /cgi-bin/phone.pl HTTP/1.0\" 200 309").isEmpty)
+    assert(LogRecord.parse("129.186.123.55 - - [12/Oct/1995ag5881.usask.ca - - [12/Oct/1995:16:07:36 -0600] \"GET /images/letter_32.gif HTTP/1.0\" 200 149").isEmpty)
   }
 
   val records = new Lab1(sourceIterator.flatMap(LogRecord.parse).toVector)
