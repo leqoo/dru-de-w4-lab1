@@ -339,8 +339,7 @@ class SimpleSpec extends FlatSpec with Matchers {
     val result = nonEmptySample.task11(LocalDate.MIN, LocalDate.MAX)
 
     assert(emptyResult.isEmpty)
-    assert(
-      result == Set("1.2.3.4", "11.22.33.44", "88.99.136.11", "94.130.133.33"))
+    assert(result == Set())
   }
 
   "task12" should "work correctly" in {
