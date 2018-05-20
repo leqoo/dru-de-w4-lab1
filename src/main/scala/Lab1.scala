@@ -1,5 +1,7 @@
 import java.time.{LocalDate, LocalDateTime}
-
+import java.time.format.DateTimeFormatter
+import scala.util.Try
+import scala.io.{Codec, Source}
 
 final case class LogRecord(host: String,
                            userName: Option[String],
@@ -23,6 +25,7 @@ object LogRecord {
     case s =>
       println(s)
       None
+    }
 }
 
 class Lab1(val records: Vector[LogRecord]) {

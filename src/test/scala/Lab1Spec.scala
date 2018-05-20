@@ -8,7 +8,7 @@ import scala.io.{Codec, Source}
 class Lab1Spec extends FlatSpec with Matchers {
 
   def sourceIterator: Iterator[String] =
-    Source.fromResource("UofS_access_log")(Codec.ISO8859).getLines() 
+    Source.fromResource("usask_access_log")(Codec.ISO8859).getLines() 
 
   "Log Record" should "parse formatted string correctly" in {
     assert(
