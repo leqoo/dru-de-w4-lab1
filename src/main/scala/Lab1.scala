@@ -42,7 +42,20 @@ class Lab1(val records: Vector[LogRecord]) {
   def task6(username: String, date: LocalDate): Boolean = 
   records.exists(x=>(x.userName contains username)&&(x.timestamp.toLocalDate==date))
 
-  def task7(startDate: LocalDate, endDate: LocalDate): Vector[String] = Vector()
+  def task7(startDate: LocalDate, endDate: LocalDate): Vector[String] = {
+      def f(x:LocalDate) = (x.isEqual(startDate)||x.isAfter(startDate))&&(x.isEqual(endDate)||x.isBefore(endDate))
+    records.
+    withFilter(x=>f(x.timestamp.toLocalDate) ).
+    map(_.request).
+    toSeq.
+    groupBy(x=>x).
+    mapValues(_.size).
+    toSeq.
+    sortWith(_._2 > _._2).
+    take(5).
+    map(_._1).
+    toVector
+    }
 
   def task8: Option[Int] = None
 
