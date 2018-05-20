@@ -61,7 +61,8 @@ class Lab1(val records: Vector[LogRecord]) {
 
   def task9(n: Int): Vector[String] = Vector()
 
-  def task10(date: LocalDate): Vector[String] = Vector()
+  def task10(date: LocalDate): Vector[String] = 
+  records.withFilter(_.timestamp.toLocalDate==date).toSeq.groupBy(_.host).mapValues(_.size).toSeq.sortWith(_._2 > _._2).take(5).map(_._1).toVector
 
   def task11(startDate: LocalDate, endDate: LocalDate): Set[String] = Set()
 
