@@ -32,7 +32,7 @@ class Lab1(val records: Vector[LogRecord]) {
 
   def task1(replyBytes: Int): Set[String] = records.withFilter(_.bytesInReply contains replyBytes).map(_.request).toSet
 
-  def task2(request: String): Set[Int] = records.withFilter(_.request == request).flatMap(_.bytesInReply).withFilter(_>0).toSet
+  def task2(request: String): Set[Int] = records.withFilter(_.request == request).flatMap(_.bytesInReply).filter(_>0).toSet
 
   def task3(request: String): Set[String] = records.withFilter(_.request == request).flatMap(_.userName).toSet
 
@@ -65,7 +65,7 @@ class Lab1(val records: Vector[LogRecord]) {
   def task9(n: Int): Vector[String] = Vector()
 
   def task10(date: LocalDate): Vector[String] = 
-  records.withFilter(_.timestamp.toLocalDate==date).toSeq.groupBy(_.host).mapValues(_.size).toSeq.sortWith(_._2 > _._2).take(5).map(_._1).toVector
+  records.filter(_.timestamp.toLocalDate==date).groupBy(_.host).mapValues(_.size).toSeq.sortWith(_._2 > _._2).take(5).map(_._1).toVector
 
   def task11(startDate: LocalDate, endDate: LocalDate): Set[String] = Set()
 
