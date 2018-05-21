@@ -60,8 +60,8 @@ class Lab1(val records: Vector[LogRecord]) {
     toVector
     }
 
-  def task8: Option[Int] = None
-
+  def task8: Option[Int] = // dangerous
+records.map(x=>(x.timestamp.toLocalDate,x.host,x.bytesInReply)).groupBy(x=>(x._1,x._2)).mapValues(_.flatMap(_._3).sum).values.max 
   def task9(n: Int): Vector[String] = Vector()
 
   def task10(date: LocalDate): Vector[String] = 
@@ -73,7 +73,17 @@ class Lab1(val records: Vector[LogRecord]) {
 
   def task13(n: Int, startDate: LocalDate, endDate: LocalDate): Set[String] = Set()
 
-  def task14(startDate: LocalDate, endDate: LocalDate): Option[String] = None
+  def task14(startDate: LocalDate, endDate: LocalDate): Option[String] = 
+  def task14(startDate: LocalDate, endDate: LocalDate): Option[String] = {
+    def f(x:LocalDate) = (x.isEqual(startDate)||x.isAfter(startDate))&&(x.isEqual(endDate)||x.isBefore(endDate))
+Try(
+records.
+withFilter(x=>f(x.timestamp.toLocalDate) && x.replyCode=="503").
+groupBy(_.request).
+mapValues(_.size).
+maxBy(_._2)._1
+).toOption
+}
 
   def task15(startDate: LocalDate, endDate: LocalDate): Option[Double] = None
 }
